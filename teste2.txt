@@ -1,0 +1,23 @@
+L.D F6 0 R1
+MULT.D F10 F6 F4
+ADD.D F2 F4 F8
+DIV.D F10 F10 F2
+ADD R1 R1 -8
+BNEZ R1 0 Loop
+
+Inteiro	Float	Mult	Div
+1
+2
+20
+40
+
+
+Resultado desejado
+
+Issue	Exec	Write
+1	2	3
+2	6	7
+3	5	6
+4	27	28
+5	6	7
+6	7	8

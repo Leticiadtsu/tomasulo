@@ -1,0 +1,35 @@
+<html>
+    <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script language='javascript' src="js/tomasulo.js"></script>
+    <script language='javascript' src="js/debug.js"></script>
+    <script language='javascript' src="js/instructions_from_file.js">
+    </script>
+
+    <body>
+    <center>
+        <div style="width: 40%; overflow: hidden;">
+            <div style="float: left;text-align:right">
+                <table>
+                    <b>Ciclos de execução:</b>
+                    <tr><td>Inteiro: </td><td><input id="inteiro" value=1 style="width:30px;text-align:center"></td></tr>
+                    <tr><td>Float Adder: </td><td><input id="addd" value=2 style="width:30px;text-align:center"></td></tr>
+                    <tr><td>Float Mult: </td><td><input id="multd" value=20 style="width:30px;text-align:center"></td></tr>
+                    <tr><td>Float Div: </td><td><input id="divd" value=40 style="width:30px;text-align:center"></td></tr>
+                </table>
+            </div>	<div style="margin-left: 20px;">
+                <b>Instruções:</b><br/>
+                <textarea id="area" rows="10" cols="20">
+L.D F6 34+ R2
+L.D F2 45+ R3
+MULT.D F0 F2 F4
+SUB.D F8 F6 F2
+DIV.D F10 F0 F6
+ADD.D F6 F8 F2
+                </textarea>
+            </div></div>
+        <br/>
+        <button  onclick="generateInstructions(document.getElementById('area').value)">Teste</button>
+    </center>
+</body>
+
+</html>

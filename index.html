@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Tomasulo</title>
+
+        <!-- Imagem da aba 
+        <link rel="icon" href="img/">-->
+
+        <!-- Normalize -->
+        <link rel="stylesheet" href="css/normalize.css">
+
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="css/materialize.css">
+
+        <!-- CSS -->
+        <link href="css/estilo.css" rel="stylesheet">
+
+
+        <!--JS-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="js/debug.js" type="text/javascript"></script>
+        <script src="js/tomasulo.js" type="text/javascript"></script>
+        <script src="js/instructions_from_file.js" type="text/javascript"></script>
+    </head>
+    <body>
+
+        <!-- Navbar -->
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper grey darken-3">
+                    <a href="#" class="brand-logo center">Tomasulo</a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a class="modal-trigger" href="#ajuda"><i class="material-icons left">help</i>Ajuda</a></li>
+                        <li><a class="modal-trigger" href="#sobre"><i class="material-icons left">info</i>Sobre</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <!------------------ Ajuda ------------------>
+        <div id="ajuda" class="modal">
+            <div class="modal-content">
+                <h4>Ajuda</h4>
+                <p>Primeiramente, informe o tempo de execução das instruções que serão executadas. Após isso, você terá duas opções,informar a quantidade de instruções desejada ou colocar o seu trecho de código no campo indicado. As intruções suportadas são ADD.D, SUBD, MULTD, DIV.D, L.D, S.D, ADD, DADDUI, BEQ e BNEZ (deve ser usada essa nomenclatura e os registradores são separados por espaço). Por exemplo:</p>
+                <ul>
+                    <li>L.D F0 34+ R0</li>
+                    <li>ADD.D F4 F0 F2</li>
+                </ul>
+                <p>Se optar por definir a quantidade de intruções, basta definir o tipo da instrução e colocar os registradores nos campos indicados. Lembrando que por padrão, adotamos a nomenclatura para Loads e Stores, de indicar o valor do deslocamento do endereço seguido por +, como mostrado no exemplo acima.</p>
+                <p>A execução pode ser passo a passo, em que mostra detalhadamente o processo do Tomasulo utilizando as Reservation State, ou execução completa, em que te retornará o resultado final da execução.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-green btn">Fechar</a>
+            </div>
+        </div>
+
+        <!------------------ Sobre ------------------>
+        <div id="sobre" class="modal">
+            <div class="modal-content">
+                <h4>Sobre</h4>
+                <p>Desenvolvido pelos alunos de Ciência da Computação da Universidade Federal de Lavras, André Chateaubriand, Letícia Diniz Tsuchiya, Marco Túlio Costa, como trabalho final da disciplina de Arquitetura de Computadores II, ministrada pelo Prof. Luiz Henrique, no período letivo 2017/2.</p>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <div id="inicio">
+
+                <div class="section center">
+                    <!-- Linha tempo execuções -->
+                    <div class="row">
+                        <div class="col s12">
+                            Tempo de execução:
+                            <div class="input-field inline largura">
+                                <input id="load" type="number" min="1">
+                                <label for="load">Load</label>
+                            </div>
+
+                            <div class="input-field inline largura">
+                                <input id="store" type="number" min="1">
+                                <label for="store">Store</label>
+                            </div>
+
+                            <div class="input-field inline largura">
+                                <input id="inteiros" type="number" min="1">
+                                <label for="inteiros">Inteiros</label>
+                            </div>
+
+                            <div class="input-field inline largura">
+                                <input id="addsub" type="number" min="1">
+                                <label for="addsub">Add/Sub</label>
+                            </div>
+
+                            <div class="input-field inline largura" >
+                                <input id="multd" type="number" min="1">
+                                <label for="multd">Mult</label>
+                            </div>
+
+                            <div class="input-field inline largura">
+                                <input id="divd" type="number"  min="1">
+                                <label for="divd">Div</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="section center" >
+                    <!-- ------------Quantidade de Instruções ------------------ -->
+                    <div class="esquerdo">
+                        <div class="col s12">
+                            <h5>Quantidade de instruções:</h5>
+                            <div class="input-field inline">
+                                <input id="qtdInstrucoes" type="number" required>
+                                <a class="waves-light btn grey darken-1" onclick="addInstrucoes()">OK</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ------------Quantidade de Instruções ------------------ -->
+                    <div class="direito">
+                        <div class="col s12">
+                            <h5>Ou coloque seu código aqui</h5>
+                            <div class="input-field">
+                                <textarea id="area" class="texArea">L.D F6 34+ R2
+L.D F2 45+ R3
+MULT.D F0 F2 F4
+SUB.D F8 F6 F2
+DIV.D F10 F0 F6
+ADD.D F6 F8 F2
+                                </textarea>
+                                <br>
+                                <a class="waves-light btn grey darken-1" onclick="readToText()">OK</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ------------Adicionar Instruções ------------------ -->
+            <div class="section center esconder" id="instrucoes">
+                <h5 id="btn-oculto">Selecione o conjunto de instruções para executar</h5>
+
+                <div id="definicao">
+                    <div id="addInstrucao">
+
+                        <!-- Definição DATALIST -->
+                        <datalist class="input-field" id="reg">
+                            <option value="F0"></option>
+                            <option value="F2"></option>
+                            <option value="F4"></option>
+                            <option value="F6"></option>
+                            <option value="F7"></option>
+                            <option value="F8"></option>
+                            <option value="F10"></option>
+                            <option value="F12"></option>
+                            <option value="F14"></option>
+                            <option value="F16"></option>
+                            <option value="F17"></option>
+                            <option value="F18"></option>
+                            <option value="F20"></option>
+                            <option value="F22"></option>
+                            <option value="F24"></option>
+                            <option value="F26"></option>
+                            <option value="F28"></option>
+                            <option value="F30"></option>
+                            <option value="R0"></option>
+                            <option value="R1"></option>
+                            <option value="R2"></option>
+                            <option value="R3"></option>
+                            <option value="R4"></option>
+                            <option value="R5"></option>
+                        </datalist>
+                        <!-- Fim Definição DATALIST -->
+
+                        <!-- Linhas das instruções (JS) -->
+
+                    </div>
+
+                    <!-- Linha adicionar instrução -->
+                    <div class="row">
+                        <div class="col s8 offset-s2">
+                            <div class="botao">
+                                <a class="btn-floating btn-small waves-light green darken-1 right tooltipped" id="addLinhaI" data-position="bottom" data-delay="50" data-tooltip="Adicionar instrução"><i class="material-icons">add</i></a>
+                            </div>
+<!--                            <div class="botao">
+                                <a class="btn-floating btn-small waves-light red darken-1 right tooltipped" id="removeLinhaI" data-position="bottom" data-delay="50" data-tooltip="Remover instrução"><i class="material-icons">remove</i></a>
+                            </div>-->
+                        </div>
+                    </div>
+
+                    <!-- Linha botões -->
+                    <div class="row">
+                        <a class="waves-light btn grey darken-1 controle" onclick="start()">Start</a>                        
+                        <a class="waves-light btn grey darken-1 controle" onclick="btnQtd()">Definir quantidade</a>
+                       
+                    </div>
+
+                </div>
+
+                <!-- Confirmação de retorno -->
+                <div id="confirmVoltar" class="modal bottom-sheet">
+                    <div class="modal-content">
+                        <p>Você tem certeza que deseja voltar para editar as instruções? Todo o processo de execução atual será perdido!</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a onclick="voltarInst()" class="modal-action modal-close waves-light btn grey darken-1">Editar instruções</a>
+                        <a href="#!" class="modal-action modal-close waves-light btn grey darken-1">Continuar execução</a>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+            </div>
+
+
+
+
+            <!-- ------------Tomasulo ------------------ -->
+            <div class="section" id="execTomasulo">
+
+                <!-- Botões de controle da execução -->
+                <div class="row">
+                    <div class="col s12">
+                        <div id="resultado">
+                        </div>
+                        <div class="right">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script language='javascript' src="js/interface.js"></script>
+    </body>
+</html>

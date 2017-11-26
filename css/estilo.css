@@ -1,0 +1,68 @@
+.esconder {
+    display: none;
+}
+
+.largura {
+    width: 5em;
+    margin: 0 1.5em;
+}
+
+.pequeno {
+    height: 25px;
+    line-height: 25px;
+    padding: 0 1rem;
+}
+
+/*Botões de dar inicio ao tomasulo ou voltar pra definir quantidade*/
+.controle {
+    
+}
+
+table, th, td {
+    border: 1px solid #bdbdbd;
+    border-collapse: collapse;
+    margin: auto;
+}
+
+table {
+    width: 95%;
+}
+
+th {
+    text-align: center;
+}
+
+#celulaInst {
+    width: 50%;
+}
+
+
+th, td {
+    width: 12%;
+}
+
+
+.col.s6>table {
+    width: 90%;
+}
+
+.botao {
+    margin: 0 1em;
+    float: right;
+}
+
+.texArea{
+    width: 80%;
+    min-height: 400px;
+    
+}
+.esquerdo{
+    padding-top: 2%;
+    width: 40%;
+    float: left;
+}
+.direito{
+    padding-top: 2%;
+   width: 40%;
+   float: right;
+}
